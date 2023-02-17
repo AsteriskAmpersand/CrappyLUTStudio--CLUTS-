@@ -229,6 +229,10 @@ class LUT_Tex():
     @classmethod
     def convert(cls,infn,outfn = None):
         infP = Path(infn)
+        if str(infP) == "idem":
+            if outfn is None:
+                print("IDEM Requires Output Path")
+            cls.from_cube(cls.identity()).convert_target(outfn)
         if outfn is None:
             outfn = infP.with_suffix(".3dl")
         outfn = Path(outfn)

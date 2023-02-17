@@ -31,7 +31,6 @@ def run(args):
     out, err = process.communicate()
     print(out.decode("utf-8"))
     print(err.decode("utf-8"))
-    errcode = process.returncode
 
 def reset_tests():
     for file in bases:
@@ -51,13 +50,13 @@ def check_clean_file(file):
 def check_clean(filenames):
     if type(filenames) is str:
         check_clean_file(filenames)
-        return
-    for file in filenames:
-        check_clean_file(file)
-    for file in Path(r"D:/MHW Modding/Tools/LUTStudio/Tests").glob("*"):
-        if file.is_file() and file.suffix.upper() != ".PY":
-            os.remove(file)
-        reset_tests()
+    else:
+        for file in filenames:
+            check_clean_file(file)
+        for file in Path(r"D:/MHW Modding/Tools/LUTStudio/Tests").glob("*"):
+            if file.is_file() and file.suffix.upper() != ".PY":
+                os.remove(file)
+            reset_tests()
     print()
     print("="*25)
     print("="*25)
@@ -94,6 +93,11 @@ args = game0 , game1
 run(args)
 check_clean([game0.upper().replace(".TEX",".3dl"),
              game1.upper().replace(".TEX",".3dl")])
+
+print("Convert Idem")
+args = "idem", "-o", testroot % "idem.png"
+run(args)
+check_clean([testroot % "idem.png"])
 
 print("Convert Mixed List")
 args = game0 , game1 , test3dl , testcube
