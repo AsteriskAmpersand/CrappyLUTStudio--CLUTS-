@@ -229,10 +229,11 @@ class LUT_Tex():
     @classmethod
     def convert(cls,infn,outfn = None):
         infP = Path(infn)
-        if str(infP) == "idem":
+        if str(infP).lower() == "idem":
             if outfn is None:
                 print("IDEM Requires Output Path")
             cls.from_cube(cls.identity()).convert_target(outfn)
+            return
         if outfn is None:
             outfn = infP.with_suffix(".3dl")
         outfn = Path(outfn)
@@ -264,8 +265,8 @@ class LUT_Tex():
             if filename.suffix.upper() == ".3DL":
                 cube = Parser3DL(filename).raw_cube
             if filename.suffix.upper() == ".TEX":
-                cube = cls.parse(filename).arra
-            if str(filename) == "idem":
+                cube = cls.parse(filename).array
+            if str(filename).lower() == "idem":
                 cube = cls.identity()
             if cube is None:
                 raise ValueError(str(filename) + " is not a recognized LUT Format")

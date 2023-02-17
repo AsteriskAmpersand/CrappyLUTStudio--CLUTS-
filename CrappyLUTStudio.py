@@ -25,5 +25,6 @@ if __name__ in "__main__":
     else:
         if not args.output:
             print("Stack conversion requires explicit output name")
-        print("Stacking %s ==> %s"%(" -> ".join(map(lambda x: x.stem, args.input_filenames)),args.output))
-        LUT_Tex.stack(args.output_filename,*args.input_filenames)
+        else:
+            print("Stacking %s ==> %s"%(" -> ".join(map(lambda x: Path(x).stem, args.input_filenames)),args.output))
+            LUT_Tex.stack(args.output,*args.input_filenames)

@@ -63,6 +63,9 @@ def check_clean(filenames):
 
 reset_tests()
 
+print("="*25)
+print("="*25)
+
 print("Convert Tex (Default)")
 args = [game0]
 run(args)
@@ -120,7 +123,13 @@ check_clean([game0.upper().replace(".TEX",".3dl"),
 
 print("Convert Stacked with Output Name")
 args = game0 , game1 , test3dl , testcube ,\
-        "-o" , testroot%"stack_test.tex"
+        "-o" , testroot%"stack_test.tex", "-s"
+run(args)
+check_clean([testroot%"stack_test.tex"])
+
+print("Convert Stacked + Idem with Output Name")
+args = game0 , game1 , "idem", test3dl , testcube ,\
+        "-o" , testroot%"stack_test.tex", "-s"
 run(args)
 check_clean([testroot%"stack_test.tex"])
 
